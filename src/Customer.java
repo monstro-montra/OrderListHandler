@@ -47,4 +47,5 @@ public class Customer {
                 "Order Number: " + getOrderNumber() + "\n" +
                 "Total Cost: " + getTotalCost()  + "\n";
     }
+
 }

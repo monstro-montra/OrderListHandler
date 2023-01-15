@@ -1,13 +1,15 @@
 public class Main {
-    private Order orderList = new Order(); //
-    public static void main(String[] args){
-        Main run = new Main();
-        run.getOrderList();
+    private static final Order orderList = new Order();
+    private static final Display display = new Display();
 
-        run.orderList.showQueue();
+    public static void main(String[] args){
+
+        display.setByName();
+        display.displayByName();
+
     }
 
-    public Order getOrderList(){
+    public static Order getOrderList(){
         Customer alex = new Customer("Alex"); // init customer named alex
         alex.placeOrder(new Memory("Corsair Dominator", 289.99, 5));
         alex.placeOrder(new Case("NZXT H510", 89.99, 0, "ATX"));
