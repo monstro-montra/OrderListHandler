@@ -1,50 +1,50 @@
 import java.util.ArrayList;
 
 public class Order {
-    ArrayList<Item> queue;
+    ArrayList<Customer> queue;
     int head;
     int tail;
-    int size;
 
-    public Order(int size){ //constructor
+    public Order(){ //constructor
         queue = new ArrayList<>();
         head = -1;
         tail = -1;
-        this.size = size;
     }
 
-    public boolean isEmpty(){
-        return size == 0;
+    public void showQueue(){
+        for (int i = 0; i < queue.size(); i++){
+            System.out.println("Customer " + i + ": " + queue.get(i).toString());
+        }
     }
 
-    public Item enqueue(Item element){
-        if(tail != queue.size() - 1) {
-            tail++;
-            queue.set(tail, element);//replace item at sail with new item, 'element'
-            size++;
-            return element;
+    //add item to head end
+    public void enqueue(Customer element){
+        if (queue.isEmpty()){ //if queue is empty
+            head = 0;
+            tail = 0;
+            queue.add(element);
+        } else { //if not empty
+            head++; //add one to front.
+            if(queue.size() > head) {
+                queue.set(head, element);
+            } else {
+                queue.add(element);
+            }
+        }
+
+    }
+
+    //delete element from the tail end
+    public void dequeue(){
+        System.out.println("Removing customer from queue.");
+        if(queue.isEmpty()){ // if the queue is empty
+            System.out.println("Queue is empty.");
+        } else if (head == tail){ //if they are both at same element. (only one element )
+            head = -1;
+            tail = -1;
         } else {
-            return null;
+            queue.remove(tail);
         }
-
-    }
-
-    public Item peek(){
-        Item elementToPeek = null;
-        if(!isEmpty()){
-            elementToPeek = queue.get(head + 1);
-        }
-        return elementToPeek;
-    }
-
-    public Item dequeue(){
-        Item elementToDeque = null;
-        if (size != 0){
-            head++;
-            elementToDeque = queue.get(head);
-            size--;
-        }
-        return elementToDeque;
     }
 
 }

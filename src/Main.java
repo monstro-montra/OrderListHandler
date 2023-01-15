@@ -1,11 +1,35 @@
 public class Main {
     public static void main(String[] args){
-        Case case1 = new Case("Corsair 500D", 129.99, 0, "Mid-Tower ATX");
+        Order orderList = new Order(); //
+        Customer alex = new Customer("Alex"); // init customer named alex
+        alex.placeOrder(new Memory("Corsair Dominator", 289.99, 5));
+        alex.placeOrder(new Case("NZXT H510", 89.99, 0, "ATX"));
 
-        System.out.println(case1);
+        Customer melina = new Customer("Melina");
+        melina.placeOrder(new GPU("GeForce 4070", 599.99, 120));
+        melina.placeOrder(new Storage("WD Black 2TB", 169.99, 8 ));
 
-        Customer customer1 = new Customer("Alex");
+        Customer marco = new Customer("Marco");
+        marco.placeOrder(new GPU("GeForce 4060", 329.99, 100));
 
-        customer1.placeOrder(new Memory("Corsair Dominator", 289.99, 5));
+        Customer ronaldo = new Customer("Ronaldo");
+        ronaldo.placeOrder(new CPU("Ryzen 7600X", 399.99, 125));
+        ronaldo.placeOrder(new Motherboard("MSI MEG X670E ACE", 744.04, 75));
+
+
+
+        orderList.enqueue(alex);
+        orderList.enqueue(melina);
+        orderList.enqueue(marco);
+        orderList.showQueue();
+        orderList.dequeue();
+        orderList.dequeue();
+        orderList.enqueue(ronaldo);
+        orderList.showQueue();
+
+    }
+
+    public static void initCustomers(){
+
     }
 }

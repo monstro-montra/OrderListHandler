@@ -23,11 +23,11 @@ public class Customer {
 
     //TODO
     public double getTotalCost() {
-        double sum = 0; //sum starts at 0.
+        totalCost = 0; //totalCost starts at 0.
         for(int i = 0; i < cart.size(); i++){
-            sum += cart.get(i).getItemCost(); //add
+            totalCost += cart.get(i).getItemCost(); //add
         }
-        return sum;
+        return totalCost;
     }
 
     public long getOrderNumber() {
@@ -41,4 +41,10 @@ public class Customer {
         cart.add(item);
     }
 
+    @Override
+    public String toString(){ //override toString method to display said Customer info as shown:
+        return  "Customer Name: " + getName() + "\n" +
+                "Order Number: " + getOrderNumber() + "\n" +
+                "Total Cost: " + getTotalCost()  + "\n";
+    }
 }
