@@ -3,9 +3,13 @@ public class Main {
     private static final Display display = new Display();
 
     public static void main(String[] args){
+        getOrderList();
+        orderList.showQueue();
+        orderList.dequeue();
+        orderList.showQueue();
 
-        display.setByName();
-        display.displayByName();
+//        display.setByName();
+//        display.displayByName();
 
     }
 
