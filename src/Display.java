@@ -1,105 +1,90 @@
-public class Display<Customer extends Comparable<? super Object>>{
-    private Customer[] ByName; //arraylist to store the customers in order by name
-    private Customer[] ByOrderNum; //arraylist to store the customers in order by order number
-    private CustomerNameCompare customerNameCompare = new CustomerNameCompare();
-    private CustomerOrderNumCompare customerOrderNumCompare = new CustomerOrderNumCompare();
+public class Display<T extends Comparable<? super T>>{
+    private T[] ByName; //arraylist to store the customers in order by name
+    private T[] ByOrderNum; //arraylist to store the customers in order by order number
     public Main main = new Main();
 
     public Display(){ //default constructor
 
     }
 
-    private void quickSortByName(Customer[] arr, int startIndex, int endIndex){
-        //if start index and end index haven't overlapped
-        if (startIndex < endIndex){
-            //call partition function on pivotIndex
-            int pivotIndex = partition(arr, startIndex, endIndex);
-            //sorting left sub list
-            quickSortByName(arr, startIndex, pivotIndex);
-            //sorting right sub list
-            quickSortByName(arr, pivotIndex + 1, endIndex);
+    private void quickSort(T[] arr, int start, int end){
+        if(start < end){
+            int pivot = partition(arr, start, end);
+            quickSort(arr, start, pivot);
+            quickSort(arr, pivot + 1, end);
         }
     }
 
-    private void quickSortByOrderNum(Customer[] arr, int startIndex, int endIndex){
-        //if start index and end index haven't overlapped
-        if (startIndex < endIndex){
-            //call partition function on pivotIndex
-            int pivotIndex = partition(arr, startIndex, endIndex);
-            //sorting left sub list
-            quickSortByOrderNum(arr, startIndex, pivotIndex);
-            //sorting right sub list
-            quickSortByOrderNum(arr, pivotIndex + 1, endIndex);
-        }
-    }
 
-    private int partition(Customer[] arr, int startIndex, int endIndex){
-        int pivotIndex = (startIndex + endIndex) / 2;
-        Customer pivotValue = arr[pivotIndex]; //set pivot value to pivotIndex
-        startIndex--; //decrement start index
-        endIndex++; //increment end index
-        while(true){
-            //start at first index and add one. go forward until there is a value that is greater than pivotValue
+    private int partition(T[] array, int start, int end)
+    {
+        int midpoint = (start + end) / 2;
+        T pivotValue = array[midpoint];
+        start--; //decrement start
+        end++; //increment start
+
+        while (true)
+        {
+            // start at first index of subarray. increment forward until it is > pivotValue
             do {
-                startIndex++;
-            } while (arr[startIndex].compareTo(pivotValue) < 0) ;
+                start++;
+            } while (array[start].compareTo(pivotValue) < 0) ;
 
-
-            //start last index and subtract one. go backward until there is a value that is less than pivotValue
+            // start at last index subarray and increment backward until it is < pivotValue
             do {
-                endIndex--;
-            } while (arr[endIndex].compareTo(pivotValue) > 0);
+                end--;
+            } while (array[end].compareTo(pivotValue) > 0) ;
 
-            if (startIndex >= endIndex){
-                return endIndex;
-            }
-            //swap elements
-            Customer temp = arr[startIndex];
-            arr[startIndex] = arr[endIndex];
-            arr[endIndex] = temp;
+            if (start >= end) return end;
+
+            // swap values
+            T temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
         }
     }
 
     public void displayByName(){
         for(int i = 0; i < ByName.length; i++){
-            System.out.println(ByName[i].getName());
+            System.out.println(ByName[i]);
         }
     }
 
     public void displayByOrderNum(){
         for(int i = 0; i < ByOrderNum.length; i++){
-            System.out.println(ByOrderNum[i].getOrderNumber());
+            System.out.println(ByOrderNum[i]);
         }
     }
 
 
-
     //getters and setters
-    public Customer[] getByName() {
+    public T[] getByName() {
 
         return ByName;
     }
 
-    public Customer[] getByOrderNum() {
+    public T[] getByOrderNum() {
         return ByOrderNum;
     }
 
     public void setByName() {
         Order queue = main.getOrderList();
-        queue = main.getOrderList(); //get the order list from Main
-        ByName = new Customer[queue.getInList().size()];
-        ByOrderNum = queue.getInList().toArray(ByName);
+        ByName = (T[]) new Customer[queue.getInList().size()]; //instantiate the size
+        ByName = queue.getInList().toArray(ByName); //convert the list to an array
         int start = 0;
         int end = ByName.length - 1;
-        quickSortByName((Customer[]) ByName, start, end);
+        quickSort(ByName, start, end);
     }
+
+
 
     public void setByOrderNum() {
         Order queue = main.getOrderList(); //get the order list from Main
-        ByOrderNum = new Customer[queue.getInList().size()];
+        ByOrderNum = (T[]) new Customer[queue.getInList().size()];
         ByOrderNum = queue.getInList().toArray(ByOrderNum);
         int start = 0; //instantiate start for the sort
         int end = ByOrderNum.length - 1; //instantiate end for the sort
-        quickSortByOrderNum((Customer[]) ByOrderNum, start, end);
+        quickSort(ByOrderNum, start, end);
     }
+
 }

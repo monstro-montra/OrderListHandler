@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Customer {
+public class Customer implements Comparable<Customer> {
     //customer fields
     private String name;
     private long orderNumber;
@@ -46,6 +47,12 @@ public class Customer {
         return  "Customer Name: " + getName() + "\n" +
                 "Order Number: " + getOrderNumber() + "\n" +
                 "Total Cost: " + getTotalCost()  + "\n";
+    }
+
+    @Override
+    public int compareTo(Customer o) {
+        return Comparator.comparing(Customer::getName)
+                .compare(this, o);
     }
 
 }
