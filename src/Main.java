@@ -1,6 +1,13 @@
 public class Main {
+    private Order orderList = new Order(); //
     public static void main(String[] args){
-        Order orderList = new Order(); //
+        Main run = new Main();
+        run.getOrderList();
+
+        run.orderList.showQueue();
+    }
+
+    public Order getOrderList(){
         Customer alex = new Customer("Alex"); // init customer named alex
         alex.placeOrder(new Memory("Corsair Dominator", 289.99, 5));
         alex.placeOrder(new Case("NZXT H510", 89.99, 0, "ATX"));
@@ -16,20 +23,7 @@ public class Main {
         ronaldo.placeOrder(new CPU("Ryzen 7600X", 399.99, 125));
         ronaldo.placeOrder(new Motherboard("MSI MEG X670E ACE", 744.04, 75));
 
-
-
-        orderList.enqueue(alex);
-        orderList.enqueue(melina);
-        orderList.enqueue(marco);
-        orderList.showQueue();
-        orderList.dequeue();
-        orderList.dequeue();
-        orderList.enqueue(ronaldo);
-        orderList.showQueue();
-
-    }
-
-    public static void initCustomers(){
-
+        orderList.enqueue(alex, melina, marco, ronaldo);
+        return orderList;
     }
 }

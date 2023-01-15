@@ -18,20 +18,21 @@ public class Order {
     }
 
     //add item to head end
-    public void enqueue(Customer element){
-        if (queue.isEmpty()){ //if queue is empty
-            head = 0;
-            tail = 0;
-            queue.add(element);
-        } else { //if not empty
-            head++; //add one to front.
-            if(queue.size() > head) {
-                queue.set(head, element);
-            } else {
-                queue.add(element);
+    public void enqueue(Customer ... elements){ //automatically creates an array to be able to enqueue multiple elements at once.
+        for (int i = 0; i < elements.length; i++){
+            if (queue.isEmpty()){ //if queue is empty
+                head = 0;
+                tail = 0;
+                queue.add(elements[i]);
+            } else { //if not empty
+                head++; //add one to front.
+                if(queue.size() > head) {
+                    queue.set(head, elements[i]);
+                } else {
+                    queue.add(elements[i]);
+                }
             }
         }
-
     }
 
     //delete element from the tail end
